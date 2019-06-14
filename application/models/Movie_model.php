@@ -14,39 +14,38 @@ class Movie_model extends CI_Model {
     public function getMovie($id) {
         $this->db->select('film.*, genre.nom as nom_genre, COUNT(historique_membre.id_film) AS nb_fois_vu')
             ->from('film')
-            ->join('genre', 'film.id_genre = genre.id_genre', 'inner')
-            ->join('historique_membre', 'historique_membre.id_film = film.id_film', 'inner')
+            ->join('genre', 'film.id_genre = genre.id_genre', 'left')
+            ->join('historique_membre', 'historique_membre.id_film = film.id_film', 'left')
             ->where('film.id_film', $id)
             ->group_by('film.id_film');
 
         return $this->db->get()->row();
     }
 
-    public function searchAdvanced($q, $g = null, $d = null, $max_results = 5, $from = 0) {
-        $this->db->select('film.id_film, film.titre, film.resum, film.duree_min, genre.nom, COUNT(historique_membre.id_film) AS nb_fois_vu, COUNT(film.id_film) AS nb_total_films')
-            ->from('film')
+    public function searchAdvanced($q, $g = null, $d = null) {
+        $this->db->select('f.id_film, f.titre, f.resum, f.duree_min, f.date_debut_affiche, g.nom, COUNT(h.id_film) AS nb_fois_vu')
+            ->from('film AS f')
             ->like('titre', $q)
-            ->join('genre', 'film.id_genre = genre.id_genre', 'left')
-            ->join('historique_membre', 'historique_membre.id_film = film.id_film', 'left');
+            ->join('genre AS g', 'f.id_genre = g.id_genre', 'left')
+            ->join('historique_membre AS h', 'h.id_film = f.id_film', 'left');
 
         if ($g !== null && $g !== 'all')
-            $this->db->where('film.id_genre', $g);
+            $this->db->where('f.id_genre', $g);
 
         if ($d !== null && $d != 'all')
-            $this->db->where('film.id_distrib', $d);
+            $this->db->where('f.id_distrib', $d);
 
-        $this->db->group_by('film.id_film');
-            /*->offset($from)
-            ->limit($max_results);*/
-
+        $this->db->group_by('f.id_film')
+            ->order_by('f.date_debut_affiche DESC');
         return $this->db->get()->result();
     }
 
-    public function getUpcoming()
+    public function getAffiche()
     {
-        $this->db->select('f.id_film, f.titre, g.debut_sceance, g.fin_sceance')
-            ->from('grille_programme AS g')
-            ->join('film AS f', 'g.id_film = f.id_film', 'inner');
+        $this->db->select('f.id_film, f.titre, f.date_debut_affiche, f.date_fin_affiche')
+            ->from('film AS f')
+            ->where('f.date_debut_affiche <=', 'NOW()', false)
+            ->where('f.date_fin_affiche >=', 'NOW()', false);
 
         return $this->db->get()->result();
     }

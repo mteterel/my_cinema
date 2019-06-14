@@ -7,10 +7,7 @@ class Movie extends CI_Controller
         $this->load->model('Movie_model');
         $movie = $this->Movie_model->getMovie($id);
 
-        if (empty($movie))
-            show_404();
-        else
-            $this->twig->display('cinema/pages/movie_view', ['movie' => $movie]);
+        $this->twig->display('cinema/pages/movie_view', ['movie' => $movie]);
     }
 
     public function edit($id) {
@@ -44,12 +41,14 @@ class Movie extends CI_Controller
         $results = $this->Movie_model->searchAdvanced(
             is_string($search_filters['query']) ? $search_filters['query'] : '',
             $search_filters['genre'],
-            $search_filters['distrib'],
-            $num_max_results
+            $search_filters['distrib']
         );
         $num_results = count($results);
 
         $this->pagination->initialize([
+            'page_query_string' => true,
+            'use_page_numbers' => true,
+            'reuse_query_string' => true,
             'total_rows' => $num_results,
             'per_page' => $num_max_results,
             'num_links' => 5,
@@ -58,9 +57,6 @@ class Movie extends CI_Controller
             'full_tag_close' => '</div>',
             'cur_tag_open' => '<a class="active item">',
             'cur_tag_close' => '</a>',
-            'page_query_string' => true,
-            'use_page_numbers' => true,
-            'reuse_query_string' => true,
             'query_string_segment' => 'page',
         ]);
 
@@ -76,6 +72,7 @@ class Movie extends CI_Controller
             'user_input' => $search_filters,
             'pagination_html' => $this->pagination->create_links()
         ];
+
         $this->twig->display('cinema/pages/movie_search', $view_data);
     }
 }

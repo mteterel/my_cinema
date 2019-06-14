@@ -8,10 +8,10 @@
                 <div id="homepage__upcoming">
                     <h2 class="ui center aligned icon header">
                         <i class="circular film icon"></i>
-                        Films à l'affiche aujourd'hui
+                        Films à l'affiche en ce moment
                     </h2>
                     <div class="ui small images">
-                        {% for film in grille_programme %}
+                        {% for film in affiche_films %}
                             <a href="{{ site_url(['movie', film.id_film, 'view']) }}">
                                 <div class="ui placeholder">
                                     <div class="image movie-poster-placeholder" data-movie-title="{{ film.titre }}"></div>
