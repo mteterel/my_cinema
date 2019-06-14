@@ -1,0 +1,43 @@
+<nav id="site-nav" class="ui fixed inverted menu">
+    <div class="ui container">
+        <a href="{{ site_url() }}" class="header item">
+            <img class="site-logo" src="{{ base_url('static/logo.png') }}" alt="Logo du site"/>
+            <span>My Cinema</span>
+        </a>
+        <a href="{{ site_url('/movie/search') }}" class="item">Recherche de films</a>
+        <a href="{{ site_url('/member/search') }}" class="item">Recherche d'utilisateurs</a>
+        <a href="{{ site_url('/movie/random') }}" class="item"><i class="random icon"></i>Film aléatoire</a>
+
+        <!--<div class="right item">
+            <div class="ui dropdown">
+                <i class="fr flag"></i><span>Français</span>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <div class="header">Americas</div>
+                    <div class="divider"></div>
+                    <div class="item"><i class="us flag"></i><span>English (U.S)</span></div>
+                    <div class="header">Europe</div>
+                    <div class="divider"></div>
+                    <div class="item"><i class="de flag"></i><span>Deutsch</span></div>
+                    <div class="item"><i class="uk flag"></i><span>English (U.K)</span></div>
+                    <div class="item"><i class="es flag"></i><span>Español</span></div>
+                    <div class="item"><i class="it flag"></i><span>Italiano</span></div>
+                    <div class="item"><i class="ru flag"></i><span>русский</span></div>
+                    <div class="header">Middle East</div>
+                    <div class="divider"></div>
+                    <div class="item"><i class="sa flag"></i><span>عربى</span></div>
+                    <div class="item"><i class="il flag"></i><span>עברית</span></div>
+                    <div class="header">Asia</div>
+                    <div class="divider"></div>
+                    <div class="item"><i class="cn flag"></i><span>中文</span></div>
+                    <div class="item"><i class="jp flag"></i><span>日本人</span></div>
+                    <div class="item"><i class="kr flag"></i><span>한국어</span></div>
+                </div>
+            </div>
+        </div>
+
+        <a class="item" href="{{ site_url('login') }}">
+            <i class="sign-in icon"></i><span>Connexion</span>
+        </a>-->
+    </div>
+</nav>

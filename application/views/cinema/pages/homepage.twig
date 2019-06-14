@@ -1,0 +1,26 @@
+{% extends 'cinema/layout/layout.twig' %}
+{% block page_title %}Accueil{% endblock %}
+
+{% block page_content %}
+    <div class="ui stackable grid container">
+        <div class="ui sixteen wide column">
+            <div class="ui segment">
+                <div id="homepage__upcoming">
+                    <h2 class="ui center aligned icon header">
+                        <i class="circular film icon"></i>
+                        Films à l'affiche aujourd'hui
+                    </h2>
+                    <div class="ui small images">
+                        {% for film in grille_programme %}
+                            <a href="{{ site_url(['movie', film.id_film, 'view']) }}">
+                                <div class="ui placeholder">
+                                    <div class="image movie-poster-placeholder" data-movie-title="{{ film.titre }}"></div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

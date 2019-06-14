@@ -1,0 +1,18 @@
+<div class="item">
+    <div class="image">
+        <div class="ui placeholder">
+            <div class="square image movie-poster-placeholder" data-movie-title="{{ result.titre }}"></div>
+        </div>
+    </div>
+    <div class="content">
+        <a class="header" href="{{ site_url(['movie', result.id_film, 'view']) }}">{{ result.titre }}</a>
+        <div class="meta">{{ result.nom|upper }} • {{ result.duree_min }} MIN</div>
+        <div class="description"><p>{{ result.resum }}</p></div>
+        <div class="extra">
+            <i class="black calendar alternate outline icon"></i><span>{{ result.date_debut_affiche|date('d/m/Y') }}</span>
+            <i class="yellow star icon"></i><span><strong>8.5</strong>/10</span>
+            <i class="blue eye icon"></i><span>{{ result.nb_fois_vu }}</span>
+            <i class="green comments icon"></i><span>444</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+{% extends 'cinema/layout/layout.twig' %}
+
+{% block page_title %}{{ movie.titre }}{% endblock %}
+
+{% block page_content %}
+    <div class="ui grid container">
+        <div class="ui sixteen wide column">
+            <div class="ui segment">
+                <div class="ui items">
+                    <div class="item">
+                        <div class="image">
+                            <div class="ui placeholder">
+                                <div class="square image movie-poster-placeholder" data-movie-title="{{ movie.titre }}"></div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h1 class="ui header">{{ movie.titre }}</h1>
+                            <div class="meta">{{ movie.nom_genre|upper }} • {{ movie.duree_min }} MIN</div>
+                            <div class="description"><p>{{ movie.resum }}</p></div>
+                            <div class="extra">
+                                <i class="black calendar alternate outline icon"></i><span>{{ result.date_debut_affiche|date('d/m/Y') }}</span>
+                                <i class="yellow star icon"></i><span><strong>8.5</strong>/10</span>
+                                <i class="blue eye icon"></i><span>{{ result.nb_fois_vu }}</span>
+                                <i class="green comments icon"></i><span>444</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui sixteen wide column">
+            <div class="ui segment">
+                <div class="ui top attached tabular menu">
+                    <div class="active item" data-tab="tab-name"><i class="green chat icon"></i>444 avis</div>
+                </div>
+                <div class="ui bottom attached active tab segment">
+                    <form class="ui form">
+                        <div class="field">
+                            <textarea placeholder="Entrez votre avis ..."></textarea>
+                        </div>
+                        <button class="ui button" type="submit">Envoyer le commentaire</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

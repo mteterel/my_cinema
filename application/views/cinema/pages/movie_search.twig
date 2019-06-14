@@ -1,0 +1,72 @@
+{% extends 'cinema/layout/layout.twig' %}
+{% block page_title %}Recherche de films{% endblock %}
+
+{% block page_content %}
+    <div class="ui stackable grid container">
+        <div class="ui five wide column">
+            <div class="ui segment">
+                <h3 class="ui header">Filtres</h3>
+                <form id="movie-search" class="ui form">
+                    <div class="field">
+                        <label for="movie-search__name">Nom du film :</label>
+                        <input id="movie-search__name" type="text" name="q" value="{{ user_input.query }}">
+                    </div>
+                    <div class="field">
+                        <label for="movie-search__genre">Genre :</label>
+                        <select id="movie-search__genre" class="ui dropdown" name="genre">
+                            <option value="all">Tous les genres</option>
+                            {% for genre in genres %}
+                                <option value="{{ genre.id_genre }}" {% if user_input.genre == genre.id_genre %}selected{% endif %}>{{ genre.nom|title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="movie-search__distrib">Distributeur :</label>
+                        <select id="movie-search__distrib" class="ui dropdown" name="distrib">
+                            <option value="all">Tous les distributeurs</option>
+                            {% for distrib in distributors %}
+                                <option value="{{ distrib.id_distrib }}" {% if user_input.distrib == distrib.id_distrib %}selected{% endif %}>{{ distrib.nom|title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="movie-search__num-results">Nombre maximum de résultats :</label>
+                        <select id="movie-search__num-results" class="ui dropdown" name="num_results">
+                            <option value="5">5 résultats</option>
+                            <option value="10">10 résultats</option>
+                            <option value="20">20 résultats</option>
+                            <option value="50">50 résultats</option>
+                            <option value="100">100 résultats</option>
+                        </select>
+                    </div>
+
+                    <button class="ui primary button" type="submit">Rechercher</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="ui eleven wide column">
+            <div class="ui segment">
+                <div class="ui dividing header">
+                    <i class="search icon"></i>
+                    <div class="content">
+                        Résultats
+                        <div class="sub header">{{ search_results|length }} résultat(s)</div>
+                    </div>
+                </div>
+                {%  if search_results|length > 0 %}
+                <div class="ui items">
+                    {% for result in search_results %}
+                        {% include 'cinema/partials/movie_result.twig' with {result: result} only %}
+                    {% endfor %}
+                </div>
+                {{ pagination_html|raw }}
+                {% else %}
+                    <p>Aucun résultat ...</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

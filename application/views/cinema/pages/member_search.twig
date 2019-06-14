@@ -1,0 +1,59 @@
+{% extends 'cinema/layout/layout.twig' %}
+{% block page_title %}Recherche d'utilisateurs{% endblock %}
+
+{% block page_content %}
+    <div class="ui stackable grid container">
+        <div class="ui sixteen wide column">
+            <div class="ui segment">
+                <div class="ui header">Filtres</div>
+                <form class="ui form">
+                    <div class="field">
+                        <label for="member-search__query">Nom complet :</label>
+                        <input id="member-search__query" type="text" name="q" value="{{ user_query }}">
+                    </div>
+                    <div class="field">
+                        <label for="member-search__num-results">Nombre maximum de résultats :</label>
+                        <select id="member-search__num-results" class="ui dropdown" name="num_results">
+                            <option value="5">5 résultats</option>
+                            <option value="10">10 résultats</option>
+                            <option value="20">20 résultats</option>
+                            <option value="50">50 résultats</option>
+                            <option value="100">100 résultats</option>
+                        </select>
+                    </div>
+                    <button id="member-search__submit" class="ui primary button" type="submit">Rechercher</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="ui sixteen wide column">
+            <div class="ui segment">
+                {% if search_results %}
+                <div class="ui header">
+                    <i class="search icon"></i>
+                    <div class="content">Résultats
+                        <div class="sub header">{{ search_results|length }} résultat(s)</div></div>
+                </div>
+                <table class="ui celled striped compact table">
+                    <thead>
+                    <tr>
+                        <th>Nom complet</th>
+                        <th>Date d'inscription</th>
+                        <th>Abonnement</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for result in search_results %}
+                        {% include 'cinema/partials/member_result.twig' with {result: result} only %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {{ pagination_html|raw }}
+                {% else %}
+                    <p>Aucun résultat ...</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

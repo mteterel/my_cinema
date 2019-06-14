@@ -1,0 +1,23 @@
+{% extends 'cinema/layout/layout.twig' %}
+{% block page_title %}{{ membre.full_name }}{% endblock %}
+
+{% block page_content %}
+<div class="ui grid container">
+    <div class="ui sixteen wide column">
+        <div class="ui segment">
+            <div class="ui items">
+                <div class="item">
+                    <div class="content">
+                        <h1 class="ui header">Nom du membre</h1>
+                        <div class="meta">Abo depuis le XXX</div>
+                        <div class="extra">
+                            <i class="calendar icon"></i><span>Inscrit le XXX</span>
+                            <i class="home icon"></i><span>Addresse</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
