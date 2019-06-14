@@ -9,7 +9,7 @@
     <td>
         <a class="ui primary basic button" href="{{ site_url(['member', result.id_membre, 'view']) }}">
             <i class="eye icon"></i><span>Voir le profil</span></a>
-        <button class="ui basic button">
-            <i class="pencil icon"></i><span>Editer</span></button>
+        <a class="ui basic button" href="{{ site_url(['member', result.id_membre, 'edit']) }}">
+            <i class="pencil icon"></i><span>Editer</span></a>
     </td>
 </tr>

@@ -35,9 +35,9 @@ class Movie_model extends CI_Model {
         if ($d !== null && $d != 'all')
             $this->db->where('film.id_distrib', $d);
 
-        $this->db->group_by('film.id_film')
-            ->offset($from)
-            ->limit($max_results);
+        $this->db->group_by('film.id_film');
+            /*->offset($from)
+            ->limit($max_results);*/
 
         return $this->db->get()->result();
     }

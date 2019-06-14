@@ -1,5 +1,5 @@
 {% extends 'cinema/layout/layout.twig' %}
-{% block page_title %}{{ membre.full_name }}{% endblock %}
+{% block page_title %}{{ membre.prenom|title }} {{ membre.nom|upper }}{% endblock %}
 
 {% block page_content %}
 <div class="ui grid container">
@@ -8,13 +8,27 @@
             <div class="ui items">
                 <div class="item">
                     <div class="content">
-                        <h1 class="ui header">Nom du membre</h1>
-                        <div class="meta">Abo depuis le XXX</div>
+                        <h1 class="ui header">{{ membre.prenom|title }} {{ membre.nom|upper }}</h1>
+                        <div class="meta">Abonnement {{ membre.nom_abo }} depuis le {{ membre.date_abo|date('d F Y') }}</div>
                         <div class="extra">
-                            <i class="calendar icon"></i><span>Inscrit le XXX</span>
-                            <i class="home icon"></i><span>Addresse</span>
+                            <i class="calendar icon"></i><span>Inscrit le {{ membre.date_inscription|date('d F Y') }}</span>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="ui top attached tabular menu">
+                <div class="active item">Historique</div>
+            </div>
+            <div class="ui bottom attached active tab segment">
+                <div class="ui small images">
+                {% for film in historique %}
+                    <a href="{{ site_url(['movie', film.id_film, 'view']) }}">
+                        <div class="ui placeholder">
+                            <div class="image movie-poster-placeholder" data-movie-title="{{ film.titre }}"></div>
+                        </div>
+                    </a>
+                {% endfor %}
                 </div>
             </div>
         </div>

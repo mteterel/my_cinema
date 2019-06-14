@@ -1,0 +1,31 @@
+{% extends 'cinema/layout/layout.twig' %}
+{% block page_title %}Edition du profil{% endblock %}
+
+{% block page_content %}
+    <div class="ui stackable grid container">
+        <div class="ui sixteen wide column">
+            <div class="ui segment">
+                <h1>Mise à jour du profil</h1>
+                <form class="ui form">
+                    <div class="field">
+                        <label for="member-edit__prenom">Prénom :</label>
+                        <input id="member-edit__prenom" type="text" name="prenom" value="{{ membre.prenom }}">
+                    </div>
+                    <div class="field">
+                        <label for="member-edit__nom">Nom :</label>
+                        <input id="member-edit__nom" type="text" name="nom" value="{{ membre.nom }}">
+                    </div>
+                    <div class="field">
+                        <label for="member-edit__abo">Abonnement :</label>
+                        <select id="member-edit__abo" class="ui dropdown" name="abo">
+                            {% for abo in abonnements %}
+                                <option value="{{ abo.id_abo }}" {% if membre.id_abo == abo.id_abo %}selected{% endif %}>{{ abo.nom }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button class="ui primary button" type="submit" name="update" value="1">Mettre à jour</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

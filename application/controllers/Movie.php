@@ -7,10 +7,10 @@ class Movie extends CI_Controller
         $this->load->model('Movie_model');
         $movie = $this->Movie_model->getMovie($id);
 
-        if (empty($movies))
+        if (empty($movie))
             show_404();
         else
-            $this->twig->display('cinema/pages/movie_view', ['movie' => $movies]);
+            $this->twig->display('cinema/pages/movie_view', ['movie' => $movie]);
     }
 
     public function edit($id) {
@@ -47,9 +47,10 @@ class Movie extends CI_Controller
             $search_filters['distrib'],
             $num_max_results
         );
+        $num_results = count($results);
 
         $this->pagination->initialize([
-            'total_rows' => count($results),
+            'total_rows' => $num_results,
             'per_page' => $num_max_results,
             'num_links' => 5,
             'attributes' => [ 'class' => 'item' ],
@@ -63,9 +64,14 @@ class Movie extends CI_Controller
             'query_string_segment' => 'page',
         ]);
 
+        $page = $this->input->get('page') ?? 1;
+        $from_offset = (($page ?? 1) - 1) * $num_max_results;
+        $results = array_splice($results, $from_offset, $num_max_results);
+
         $view_data = [
             'distributors' => $all_d,
             'genres' => $all_g,
+            'num_results' => $num_results,
             'search_results' => $results ?? null,
             'user_input' => $search_filters,
             'pagination_html' => $this->pagination->create_links()
