@@ -15,7 +15,7 @@ class Member_model extends CI_Model {
     }
 
     public function getMember($id) {
-        $this->db->select('f.nom, f.prenom, m.id_abo, a.nom AS nom_abo, m.date_abo, m.date_inscription')
+        $this->db->select('m.id_membre, f.nom, f.prenom, m.id_abo, a.nom AS nom_abo, m.date_abo, m.date_inscription')
             ->from('membre AS m')
             ->join('fiche_personne AS f', 'm.id_fiche_perso = f.id_perso', 'inner')
             ->join('abonnement AS a', 'm.id_abo = a.id_abo', 'inner')
@@ -39,12 +39,12 @@ class Member_model extends CI_Model {
     public function changeAbo($id_membre, $id_abo) {
         $this->db
             ->set('id_abo', $id_abo)
-            ->set('date_abo', 'NOW()')
+            ->set('date_abo', 'NOW()', false)
             ->where('id_membre', $id_membre)
             ->update('membre');
     }
 
-    public function search($query, $max_results = 20) {
+    public function search($query) {
         $this->db->select('m.id_membre, p.nom, p.prenom, a.nom AS nom_abo, m.date_abo AS date_abo')
             ->from('membre AS m')
             ->join('fiche_personne AS p', 'm.id_fiche_perso = p.id_perso', 'inner')
