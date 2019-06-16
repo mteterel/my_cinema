@@ -47,7 +47,7 @@ class Member extends CI_Controller
         $this->load->model('Member_model');
         $user_query = $this->input->get('q');
         $max_results = $this->input->get('num_results');
-        $max_results = min(max($max_results, 5), 100);
+        $max_results = min(max($max_results, 10), 100);
 
         $results = $this->Member_model->search($user_query);
         $num_results = count($results);
